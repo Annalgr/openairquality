@@ -1,4 +1,4 @@
-from openairquality import get_quality
+from pypackage.openairquality import get_quality
 
 pm10=get_quality()
 print("Rome has a pm10 value of {}".format(pm10))
