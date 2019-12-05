@@ -1,5 +1,5 @@
 import argparse
-from mypackage.openairquality import get_quality
+from pypackage.openairquality import get_quality
 
 
 parser = argparse.ArgumentParser()
