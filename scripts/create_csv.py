@@ -12,6 +12,24 @@ def has_numbers(input_s):
     return any(char.isdigit() for char in input_s)
 
 
+def check_city(data):
+    '''Data cleaning and filtering for European cities.'''
+    eu = []
+    with open('eu.csv') as eu_file:
+        reader = csv.reader(eu_file, delimiter=',')
+        for row in reader:
+            eu = row
+
+    city_list =[]
+    for d in data:
+        if d['country'] in eu:
+            eu_city = d['city']
+            if eu_city != 'N/A' and eu_city != 'unused' and not has_numbers(eu_city):
+                city_list.append(eu_city)
+
+    return city_list
+
+
 def create_csv(url, req, csv_name):
     '''Gather data from OpenAir APIs and create a csv file.'''
     q = requests.get(url)
