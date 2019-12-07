@@ -51,3 +51,11 @@ def create_csv(url, req, csv_name):
     results_file.close()
 
     return results_file
+
+
+if __name__ == "__main__":
+    url_c = 'https://api.openaq.org/v1/cities?limit=10000'  
+    url_p = 'https://api.openaq.org/v1/parameters'
+
+    cities = create_csv(url_c, 'city', 'cities.csv')
+    parameters = create_csv(url_p, 'id', 'parameters.csv')
