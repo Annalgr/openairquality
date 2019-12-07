@@ -1,10 +1,10 @@
 import argparse
 from pypackage.openairquality import get_quality
-
+from pypackage.openairquality import list_csv
 
 parser = argparse.ArgumentParser()
-parser.add_argument("city", help="Name of the city to be sought")
-parser.add_argument("-p", "--parameter", help="Polluting particles")
+parser.add_argument("city", help="Name of the city to be sought",choices = list_csv('pypackage/cities.csv'))
+parser.add_argument("-p", "--parameter", help="Polluting particles required (default=pm10)", choices = list_csv('pypackage/parameters.csv'), default="pm10")
 parser.add_argument("-v", "--verbosity", help="Increase output verbosity", action="count")
 args = parser.parse_args()
 
@@ -31,5 +31,3 @@ else:
         print("None")
     else:
         print(p_value)
-
-
