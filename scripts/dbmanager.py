@@ -1,3 +1,4 @@
+
 """This module allows you to create and populate a Database of username and passwords."""
 import sqlite3
 import hashlib
@@ -49,7 +50,8 @@ def save_new_username(username, password):
     else:
         salt = str(random.random())
         concat = salt + password
-        digest = hashlib.sha256(concat.encode('utf-8')).hexdigest()
+        for i in range(1000):
+            digest = hashlib.sha256(concat.encode('utf-8')).hexdigest()
         cursor.execute("INSERT OR REPLACE INTO user_database VALUES (?,?,?)",
                        (username, digest, salt))
         print("The registration has been successful")
@@ -64,7 +66,8 @@ def check_for_username(username, password):
     results = row.fetchall()
     salt = str(results[0][2])
     concat = salt + password
-    digest = hashlib.sha256(concat.encode('utf-8')).hexdigest()
+    for i in range (1000):
+        digest = hashlib.sha256(concat.encode('utf-8')).hexdigest()
     if digest == results[0][1]:
         print ('Successful log-in.') 
     else:
@@ -79,4 +82,5 @@ if __name__ == "__main__":
     elif args.c and args.p:
         check_for_username(args.c, args.p)
     conn.close()
+
 
