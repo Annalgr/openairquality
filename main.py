@@ -13,10 +13,13 @@ parser.add_argument("-v", "--verbosity", help="Increase output verbosity", actio
 args = parser.parse_args()
 
 
+# Check if the username is registered
 if check_db(args):
- 
+
+    # Get air quality value   
     p_value = get_quality(args.city, args.molecule)
 
+    # Print the result based on verbosity level
     if args.verbosity == 2:
         print("Second level of verbosity turned on")
 
