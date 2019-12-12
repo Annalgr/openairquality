@@ -8,12 +8,12 @@ import json
 
 
 def has_numbers(input_s):
-    '''Check if the string contains digits.'''
+    """Check if the string contains digits."""
     return any(char.isdigit() for char in input_s)
 
 
 def check_city(data):
-    '''Data cleaning and filtering for European cities.'''
+    """Data cleaning and filtering for European cities."""
     eu = []
     with open('eu.csv') as eu_file:
         reader = csv.reader(eu_file, delimiter=',')
@@ -31,7 +31,7 @@ def check_city(data):
 
 
 def create_csv(url, req, csv_name):
-    '''Gather data from OpenAir APIs and create a csv file.'''
+    """Gather data from OpenAir APIs and create a csv file."""
     q = requests.get(url)
     data = json.loads(q.text)['results']
 
@@ -44,9 +44,9 @@ def create_csv(url, req, csv_name):
         for d in data:
             res_list.append(d[req])
 
-    results_file = open(csv_name, 'w') # open a new file
+    results_file = open(csv_name, 'w')  # open a new file
 
-    for r in res_list: # write data into the file
+    for r in res_list:  # write data into the file
         results_file.write(r + ",")
     results_file.close()
 
@@ -59,3 +59,4 @@ if __name__ == "__main__":
 
     cities = create_csv(url_c, 'city', 'cities.csv')
     parameters = create_csv(url_p, 'id', 'parameters.csv')
+    
