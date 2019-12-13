@@ -7,6 +7,7 @@ import sqlite3
 import hashlib
 import argparse
 import random
+import os
 
 conn = None
 cursor = None
@@ -19,6 +20,7 @@ def open_and_create():
     """
     global conn
     global cursor
+    os.chdir("../pypackage")
     conn = sqlite3.connect('openaq_users.db')
     cursor = conn.cursor()
     try:
