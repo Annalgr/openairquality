@@ -1,4 +1,8 @@
-"""This module allows you to create and populate a Database of username and passwords."""
+"""
+This module allows you to create and populate a SQL database
+of usernames and passwords.
+"""
+
 import sqlite3
 import hashlib
 import argparse
@@ -9,9 +13,7 @@ cursor = None
 
 
 def open_and_create():
-    """
-
-    """
+    """Check for existing sql db or create a new one."""
     global conn
     global cursor
     conn = sqlite3.connect('openaq_users.db')
@@ -22,15 +24,13 @@ def open_and_create():
     except sqlite3.OperationalError:
         # Create table if not exists
         cursor.execute('''CREATE TABLE user_database
-                     (username TEXT CHAR(30) NOT NULL, 
+                     (username TEXT CHAR(30) NOT NULL,
                      password_digest TEXT CHAR(30) NOT NULL,
                      salt TEST, PRIMARY KEY (username))''')
 
 
 def parse_args():
-    """
-
-    """
+    """Parse user inputs: username and password."""
     parser = argparse.ArgumentParser()
     parser.add_argument('-a', help="add a username (requires -p)",
                         required=False)
@@ -42,9 +42,7 @@ def parse_args():
 
 
 def save_new_username(username, password):
-    """
-
-    """
+    """Save new user in the db if its username is not already present."""
     global conn
     global cursor
     u_row = cursor.execute(
@@ -70,9 +68,7 @@ def save_new_username(username, password):
 
 
 def check_for_username(username, password):
-    """
-
-    """
+    """Check for existing user for log-in."""
     global conn
     global cursor
     row = cursor.execute(
@@ -98,5 +94,3 @@ if __name__ == "__main__":
     elif args.c and args.p:
         check_for_username(args.c, args.p)
     conn.close()
-
-

@@ -20,11 +20,12 @@ def check_city(data):
         for row in reader:
             eu = row
 
-    city_list =[]
+    city_list = []
     for d in data:
         if d['country'] in eu:
             eu_city = d['city']
-            if eu_city != 'N/A' and eu_city != 'unused' and not has_numbers(eu_city):
+            if eu_city != 'N/A' and eu_city != 'unused' \
+                    and not has_numbers(eu_city):
                 city_list.append(eu_city)
 
     return city_list
@@ -54,9 +55,8 @@ def create_csv(url, req, csv_name):
 
 
 if __name__ == "__main__":
-    url_c = 'https://api.openaq.org/v1/cities?limit=10000'  
+    url_c = 'https://api.openaq.org/v1/cities?limit=10000'
     url_p = 'https://api.openaq.org/v1/parameters'
 
     cities = create_csv(url_c, 'city', 'cities.csv')
     parameters = create_csv(url_p, 'id', 'parameters.csv')
-    
