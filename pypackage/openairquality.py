@@ -1,5 +1,5 @@
 """
-Get the value of an air quality parameter within a European city. 
+Get the value of an air quality parameter within a European city.
 """
 
 import requests
@@ -20,10 +20,10 @@ def list_csv(csv_file):
             for row in reader:
                 e_list = row
         return e_list
-    
+
     except FileNotFoundError:
         return print("Input file does not exist.")
-        
+
     except UnicodeDecodeError:
         return print("Invalid file type. CSV file required.")
 
@@ -37,7 +37,7 @@ def check_city(c):
         print("Oops! The European city you are looking for is not present.")
         return False
 
-        
+
 def get_quality(city, parameter):
     """Query the OpenAQ website to fetch the parameter's value.
 
@@ -49,11 +49,10 @@ def get_quality(city, parameter):
     r = requests.get(url)
     data = json.loads(r.text)['results']
     p_value = 0
-    
+
     if data:
         for d in data:
             measure = d['measurements'][0]
             p_value += measure['value']
         return p_value/len(data)
     return -1
-
