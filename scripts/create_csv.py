@@ -1,5 +1,6 @@
 """
- Create csv files for limiting user's request of cities and parameters.
+ Create csv files for limiting user's request.
+ Reducing options to European cities and parameters.
 """
 
 import csv
@@ -8,12 +9,21 @@ import json
 
 
 def has_numbers(input_s):
-    """Check if the string contains digits."""
+    """Check if the string contains digits.
+
+       Key arguments:
+       input_s -- input string
+    """
     return any(char.isdigit() for char in input_s)
 
 
 def check_city(data):
-    """Data cleaning and filtering for European cities."""
+    """Do data cleaning and filtering for European cities
+       and return a list.
+
+       Key arguments:
+       data -- json data collected from API
+    """
     eu = []
     with open('eu.csv') as eu_file:
         reader = csv.reader(eu_file, delimiter=',')
@@ -32,7 +42,13 @@ def check_city(data):
 
 
 def create_csv(url, req, csv_name):
-    """Gather data from OpenAir APIs and create a csv file."""
+    """Gather data from OpenAir APIs and create a csv file.
+
+       Key arguments:
+       url -- API url
+       req -- request either city or parameter
+       csv_name -- name assigned to the new csv
+    """
     q = requests.get(url)
     data = json.loads(q.text)['results']
 

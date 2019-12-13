@@ -20,37 +20,37 @@ parser.add_argument("-v", "--verbosity", help="Increase output verbosity",
                     action="count")
 args = parser.parse_args()
 
+if __name__ == "__main__":
+    # Check if the username is registered
+    if check_db(args) and check_city(str(args.city)):
 
-# Check if the username is registered
-if check_db(args) and check_city(str(args.city)):
+        # Get air quality value
+        p_value = get_quality(args.city, args.molecule)
 
-    # Get air quality value
-    p_value = get_quality(args.city, args.molecule)
+        # Print the result based on verbosity level
+        if args.verbosity == 2:
+            print("Second level of verbosity turned on")
 
-    # Print the result based on verbosity level
-    if args.verbosity == 2:
-        print("Second level of verbosity turned on")
+            if p_value == -1:
+                print("Could not find a value of {} for {}".format(
+                                                                   args.molecule,
+                                                                   args.city))
+            else:
+                print("The city of {} has a {} value of {}".format(
+                                                                   args.city,
+                                                                   args.molecule,
+                                                                   p_value))
 
-        if p_value == -1:
-            print("Could not find a value of {} for {}".format(
-                                                               args.molecule,
-                                                               args.city))
+        elif args.verbosity == 1:
+            print("First level of verbosity turned on")
+
+            if p_value == -1:
+                print("{} for {} not found".format(args.molecule, args.city))
+            else:
+                print("{} in {} = {}".format(args.molecule, args.city, p_value))
+
         else:
-            print("The city of {} has a {} value of {}".format(
-                                                               args.city,
-                                                               args.molecule,
-                                                               p_value))
-
-    elif args.verbosity == 1:
-        print("First level of verbosity turned on")
-
-        if p_value == -1:
-            print("{} for {} not found".format(args.molecule, args.city))
-        else:
-            print("{} in {} = {}".format(args.molecule, args.city, p_value))
-
-    else:
-        if p_value == -1:
-            print("None")
-        else:
-            print(p_value)
+            if p_value == -1:
+                print("None")
+            else:
+                print(p_value)

@@ -1,5 +1,5 @@
 """
-This module allows you to create and populate a SQL database
+This module allows to create and populate a SQL database
 of usernames and passwords.
 """
 
@@ -13,7 +13,10 @@ cursor = None
 
 
 def open_and_create():
-    """Check for existing sql db or create a new one."""
+    """Check for existing sql db or create a new one with
+       a data schema to store: username, password and salt,
+       using username as primary key.
+    """
     global conn
     global cursor
     conn = sqlite3.connect('openaq_users.db')
@@ -42,7 +45,12 @@ def parse_args():
 
 
 def save_new_username(username, password):
-    """Save new user in the db if its username is not already present."""
+    """Save new user in the db if its username is not already present.
+
+       Key arguments:
+       username -- string name to add in db
+       password -- string to add as password in db
+    """
     global conn
     global cursor
     u_row = cursor.execute(
@@ -68,7 +76,12 @@ def save_new_username(username, password):
 
 
 def check_for_username(username, password):
-    """Check for existing user for log-in."""
+    """Check for existing user for log-in.
+
+       Key arguments:
+       username -- string name to be selected from the db
+       password -- string to authenticate the user
+    """
     global conn
     global cursor
     row = cursor.execute(

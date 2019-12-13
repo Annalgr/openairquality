@@ -14,8 +14,8 @@ class TestCsvCreation(unittest.TestCase):
     """Perform unittest on the list_csv function."""
 
     def setUp(self):
-        """Set the environment.
-        Create a temporary empty file.
+        """Set the environment:
+           create a temporary empty file.
         """
         self.temporary_file = "/tmp/emptyfile"
         f = open(self.temporary_file, 'w')

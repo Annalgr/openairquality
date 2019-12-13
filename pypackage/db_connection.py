@@ -5,6 +5,15 @@ import hashlib
 
 
 def check_db(args):
+    """Check if the user is registered in the database.
+
+       Connect to the sqlite3 database. If the user is registered verify
+       whether its password is correct adding the salt and computing the
+       hash, otherwise return helpful message to the user.
+
+       Key arguments:
+       args -- argparse user inputs (username and password)
+    """
     # Open connection to the registered users db
     conn = sqlite3.connect('pypackage/openaq_users.db')
     cursor = conn.cursor()

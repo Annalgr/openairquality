@@ -1,5 +1,7 @@
 """
-Get the value of an air quality parameter within a European city.
+Get the value of an air quality parameter within a European city:
+verify that the user's input for the city is valid, if so query the
+OpenAQ website to fetch the parameter's values and compute the avg.
 """
 
 import requests
@@ -11,7 +13,11 @@ openaq_url = 'https://api.openaq.org/v1/latest?city={}&parameter={}'
 
 
 def list_csv(csv_file):
-    """Transform csv files into lists of elements."""
+    """Read csv file and store values into a list.
+
+       Key arguments:
+       csv_file -- csv file to be converted in py list
+    """
     e_list = []
 
     try:
@@ -29,7 +35,11 @@ def list_csv(csv_file):
 
 
 def check_city(c):
-    """Check that c is in the cities.csv"""
+    """Check that the input city is in the European cities'list.
+
+       Key arguments:
+       c -- input city to look for
+    """
     c_list = list_csv('pypackage/cities.csv')
     if c.capitalize() in c_list:
         return True
@@ -40,10 +50,12 @@ def check_city(c):
 
 def get_quality(city, parameter):
     """Query the OpenAQ website to fetch the parameter's value.
+       The API returns json data, get all values from the same
+       location and compute the avrage.
 
        Key arguments:
        city -- European city name
-       parameter -- name of the molecule
+       parameter -- name of the polluting molecule
     """
     url = openaq_url.format(city.capitalize(), parameter)
     r = requests.get(url)
