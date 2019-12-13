@@ -24,12 +24,11 @@ def list_csv(csv_file):
 def check_city(c):
     """Check that c is in the cities.csv"""
     c_list = list_csv('pypackage/cities.csv')
-    if c in c_list:
+    if c.capitalize() in c_list:
         return True
     else:
         print("Oops! The European city you are looking for is not present.")
         return False
-
 
 def get_quality(city, parameter):
     '''Query the OpenAQ website to fetch the parameter's value.'''
