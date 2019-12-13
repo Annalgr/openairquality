@@ -12,10 +12,19 @@ class TestCsvCreation(unittest.TestCase):
         self.temporary_file = "/tmp/emptyfile"
         f = open (self.temporary_file, 'w')
         f.close()
+
+    def test_valid_file(self):
+        e_list = list_csv("eu.csv")
+        self.assertTrue(e_list)
         
         
     def test_no_file(self):
         e_list = list_csv("/tmp/idonotexist")
+        self.assertFalse(e_list)
+
+
+    def test_invalid_file(self):
+        e_list = list_csv("ibelieveinmyself.jpg")
         self.assertFalse(e_list)
 
 
@@ -26,4 +35,5 @@ class TestCsvCreation(unittest.TestCase):
 
     def tearDown(self):
         os.remove(self.temporary_file)
+        
         
