@@ -14,7 +14,7 @@ args = parser.parse_args()
 
 
 # Check if the username is registered
-if check_db(args):
+if check_db(args) and check_city(str(args.city)):
 
     # Get air quality value   
     p_value = get_quality(args.city, args.molecule)

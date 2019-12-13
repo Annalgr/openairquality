@@ -21,6 +21,15 @@ def list_csv(csv_file):
     return e_list
 
 
+def check_city(c):
+    c_list = list_csv('pypackage/cities.csv')
+    if c.capitalize() in c_list:
+        return True
+    else:
+        print("Oops! The European city you are looking for is not present.")
+        return False
+
+
 def get_quality(city, parameter):
     '''Query the OpenAQ website to fetch the parameter's value.'''
     url = openaq_url.format(city, parameter)
