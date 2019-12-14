@@ -12,7 +12,7 @@ parser.add_argument("-p", "--password",
 parser.add_argument("-c", "--city",
                     help="Name of the European city to be sought",
                     required=True)
-parser.add_argument("-m", "--molecule",
+parser.add_argument("-m", "--mol",
                     help="Polluting molecule required (default=pm10)",
                     choices=list_csv('pypackage/parameters.csv'),
                     default="pm10")
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     if check_db(args) and check_city(str(args.city)):
 
         # Get air quality value
-        p_value = get_quality(args.city, args.molecule)
+        p_value = get_quality(args.city, args.mol)
 
         # Print the result based on verbosity level
         if args.verbosity == 2:
@@ -33,21 +33,21 @@ if __name__ == "__main__":
 
             if p_value == -1:
                 print("Could not find a value of {} for {}".format(
-                                                                   args.molecule,
+                                                                   args.mol,
                                                                    args.city))
             else:
                 print("The city of {} has a {} value of {}".format(
                                                                    args.city,
-                                                                   args.molecule,
+                                                                   args.mol,
                                                                    p_value))
 
         elif args.verbosity == 1:
             print("First level of verbosity turned on")
 
             if p_value == -1:
-                print("{} for {} not found".format(args.molecule, args.city))
+                print("{} for {} not found".format(args.mol, args.city))
             else:
-                print("{} in {} = {}".format(args.molecule, args.city, p_value))
+                print("{} in {} = {}".format(args.mol, args.city, p_value))
 
         else:
             if p_value == -1:
