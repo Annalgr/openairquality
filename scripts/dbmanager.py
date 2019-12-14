@@ -68,9 +68,9 @@ def save_new_username(username, password):
 
     else:
         salt = str(random.random())
-        concat = salt + password
+        digest = salt + password
         for i in range(1000):
-            digest = hashlib.sha256(concat.encode('utf-8')).hexdigest()
+            digest = hashlib.sha256(digest.encode('utf-8')).hexdigest()
         cursor.execute("INSERT OR REPLACE INTO user_database VALUES (?,?,?)",
                        (username, digest, salt))
         print("The registration has been successful")
@@ -91,9 +91,9 @@ def check_for_username(username, password):
     )
     results = row.fetchall()
     salt = str(results[0][2])
-    concat = salt + password
+    digest = salt + password
     for i in range(1000):
-        digest = hashlib.sha256(concat.encode('utf-8')).hexdigest()
+        digest = hashlib.sha256(digest.encode('utf-8')).hexdigest()
     if digest == results[0][1]:
         print('Successful log-in.')
     else:

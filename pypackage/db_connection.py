@@ -30,11 +30,11 @@ def check_db(args):
     if results:
         # Add salt
         salt = str(results[0][2])
-        concat = salt + args.password
+        digest = salt + args.password
 
         # Compute the hash
         for i in range(1000):
-            digest = hashlib.sha256(concat.encode('utf-8')).hexdigest()
+            digest = hashlib.sha256(digest.encode('utf-8')).hexdigest()
 
         # Check for password
         if digest == results[0][1]:
