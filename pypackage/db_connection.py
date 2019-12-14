@@ -2,6 +2,7 @@
 
 import sqlite3
 import hashlib
+import os
 
 
 def check_db(args):
@@ -15,7 +16,9 @@ def check_db(args):
        args -- argparse user inputs (username and password)
     """
     # Open connection to the registered users db
-    conn = sqlite3.connect('pypackage/openaq_users.db')
+    base_path = "pypackage"
+    users_db = "openaq_users.db"
+    conn = sqlite3.connect(os.path.join(base_path, users_db))
     cursor = conn.cursor()
 
     # Check for username
@@ -39,8 +42,10 @@ def check_db(args):
             return True
 
         else:
-            return print(
+            print(
                 "Password is invalid for user {}.".format(args.username)
             )
+            return False
     else:
-        return print("Username not present.")
+        print("Username not present.")
+        return False
