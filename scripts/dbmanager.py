@@ -29,9 +29,9 @@ def open_and_create():
     except sqlite3.OperationalError:
         # Create table if not exists
         cursor.execute('''CREATE TABLE user_database
-                     (username TEXT CHAR(30) NOT NULL,
-                     password_digest TEXT CHAR(30) NOT NULL,
-                     salt TEST, PRIMARY KEY (username))''')
+                     (username CHAR(30) NOT NULL,
+                     password_digest CHAR(64) NOT NULL,
+                     salt CHAR(30), PRIMARY KEY (username))''')
 
 
 def parse_args():
@@ -55,6 +55,13 @@ def save_new_username(username, password):
     """
     global conn
     global cursor
+
+    # Check the username can fit the database
+    if len(username) > 30:
+        print("Username too long. Plese, use less than 30 chars.")
+        return
+
+    # Check the username is not already existing
     u_row = cursor.execute(
         "SELECT * FROM user_database WHERE username = ?", (username,)
     )
